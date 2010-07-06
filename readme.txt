@@ -43,7 +43,7 @@ Please visit http://linkxl.com/plugins
 == Changelog ==
 
 = 2.1 =
-* fixed backward compatibility with Wordpress >= 2.7.0
+* fixed backward compatibility with Wordpress >= 2.2.0
 
 = 2.0 =
 * first release of the plugin for new LinkXL site
