@@ -4,7 +4,7 @@
  * Plugin URI: http://linkxl.com
  * Settings URI: 
  * Description: LinkXL enables Wordpress bloggers to easily sell text link advertisting within existing content.
- * Version: 2.1
+ * Version: 2.2
  * Author: LinkXL
  * Author URI: http://linkxl.com
  */
