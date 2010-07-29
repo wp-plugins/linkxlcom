@@ -41,6 +41,17 @@ class Headers {
             }
         }
     }
+
+    function hasLinkXLHeaders()
+    {
+        foreach($this->handlers as $name => $handler){
+            if(isset($_SERVER[$name])){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 
 ?>

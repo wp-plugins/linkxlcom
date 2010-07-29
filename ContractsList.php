@@ -97,7 +97,8 @@ class ContractsList {
             return true;
         }
 
-        if($t_b_s_p !== false && $t_b_e_p !== false && $t_e_s_p !== false && $t_e_e_p !== false && ($t_b_s_p < $t_b_e_p) && ($t_e_s_p < $t_e_e_p)){
+        if($t_b_s_p !== false && $t_b_e_p !== false && $t_e_s_p !== false && $t_e_e_p !== false && ($t_b_s_p < $t_b_e_p)
+                && ($t_e_s_p < $t_e_e_p) && ($content[$t_e_s_p+1] == '/') && ($content[$t_b_s_p+1] != '/')){
             return !preg_match($pattern_1, $this->str_cut($t_b_s_p, $t_e_e_p, $content));
         }
 

@@ -4,7 +4,7 @@
  * Plugin URI: http://linkxl.com
  * Settings URI: 
  * Description: LinkXL enables Wordpress bloggers to easily sell text link advertisting within existing content.
- * Version: 2.3
+ * Version: 2.5
  * Author: LinkXL
  * Author URI: http://linkxl.com
  */
@@ -29,9 +29,12 @@ if(!function_exists('json_encode')){
 
 $headers = new Headers();
 Handlers::setHandlers($headers);
+
 $headers->checkHeaders();
 
 add_action('update_option_linkxl_sync_count', array('Handlers', 'sync'));
+
+add_action('update_option_linkxl_site_token', array('Handlers', 'sync'));
 
 if(get_option('linkxl_configuration')){
     addParseFilters(new ContractsList());
@@ -76,27 +79,33 @@ class Handlers {
             }
             catch(Exception $e){
                 echo json_encode(array('result' => false));
+
                 exit();
             }
 
             setConfig($response);
 
             echo json_encode(array('result' => true));
-            exit();
         }
         catch(Exception $e){
             echo json_encode(array('result' => false));
-            exit();
+
         }
+
+        exit();
     }
 
     public static function sync()
     {
         try{
             if(function_exists('curl_init')){
+                require_once 'SyncCurl.php';
+                require_once 'WPOptionHelper.php';
                 $response = SyncCurl::getSyncResponse(getSyncUrl());
             }
             else{
+                require_once 'SyncFopen.php';
+                require_once 'WPOptionHelper.php';
                 $response = SyncFopen::getSyncResponse(getSyncUrl());
             }
 
@@ -124,19 +133,29 @@ class Handlers {
         }
     }
 
+    public static function showVersion()
+    {
+        echo json_encode(array('VERSION' => '2.5'));
+
+        exit();
+    }
+
     public static function setHandlers(Headers $headers)
     {
         $headers->addHandler('HTTP_LINKXLINFO', 'showInfo', 'Handlers');
         $headers->addHandler('HTTP_LINKXLSYNC', 'sync_request', 'Handlers');
         $headers->addHandler('HTTP_LINKXLSHOWTAG', 'showTag', 'Handlers');
+        $headers->addHandler('HTTP_LINKXLSHOWVERSION', 'showVersion', 'Handlers');
 
         $headers->addHandler('LINKXLINFO', 'showInfo', 'Handlers');
         $headers->addHandler('LINKXLSYNC', 'sync_request', 'Handlers');
         $headers->addHandler('LINKXLSHOWTAG', 'showTag', 'Handlers');
+        $headers->addHandler('LINKXLSHOWVERSION', 'showVersion', 'Handlers');
 
         $headers->addHandler('HTTP_HTTP_LINKXLINFO', 'showInfo', 'Handlers');
         $headers->addHandler('HTTP_HTTP_LINKXLSYNC', 'sync_request', 'Handlers');
         $headers->addHandler('HTTP_HTTP_LINKXLSHOWTAG', 'showTag', 'Handlers');
+        $headers->addHandler('HTTP_HTTP_LINKXLSHOWVERSION', 'showVersion', 'Handlers');
     }
 }
 

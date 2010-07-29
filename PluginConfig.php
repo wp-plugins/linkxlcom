@@ -1,5 +1,9 @@
 <?php
 
+add_action('update_option_linkxl_sync_count', array('Handlers', 'sync'));
+
+add_action('update_option_linkxl_site_token', array('Handlers', 'sync'));
+
 if(count($_POST) && !function_exists('register_setting')){
     if(array_key_exists('linkxl_sync_url', $_POST)){
         update_option('linkxl_sync_url', $_POST['linkxl_sync_url']);
@@ -45,7 +49,7 @@ function register_plugin_links($links, $file){
 function linkxl_settings_menu() {
 
 	//create new top-level menu
-	add_menu_page('LinkXL Plugin Settings', 'LinkXL Settings', 'administrator', __FILE__, 'linkxl_settings_page',(function_exists('plugins_url'))?plugins_url('/images/linkxl-icon.png', __FILE__):array());
+	add_menu_page('LinkXL Plugin Settings', 'LinkXL Settings', 'administrator', __FILE__, 'linkxl_settings_page',array());
 
 	//call register settings function
 	add_action( 'admin_init', 'register_linkxl_settings' );
