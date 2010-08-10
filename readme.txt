@@ -27,7 +27,7 @@ This section describes how to install the plugin and get it working.
 
 = Plugin does not work for me, I cannot activate it because of errors =
 
-Current version of the plugin requires Wordpress version >= 2.7.0 and PHP version >= 5.0.x to work. 
+Current version of the plugin requires Wordpress version >= 2.2.0 and PHP version >= 5.0.x to work. 
 However we prepared also a version that works with older Wordpress releases (>= 2.0.2) and PHP >= 4.X. 
 
 Please visit http://linkxl.com/plugins for more information.
