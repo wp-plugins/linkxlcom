@@ -1,10 +1,10 @@
-=== Plugin Name ===
+=== LinkXL.com Plugin ===
 Contributors: mzawadzinski
 Donate link: http://linkxl.com/
 Tags: contextual advertising, monetize blog, make money, link building, sell links
 Requires at least: 2.2.0
 Tested up to: 3.0
-Stable tag: 2.1
+Stable tag: 2.2
 
 Use the LinkXL plugin to monetize your blog by selling contextual links, automatically.  Simply install the plugin, approve the ads and collect your money!
 
@@ -41,6 +41,9 @@ Sure. Our technical support is ready to help you 24/7. Please send us an email a
 Please visit http://linkxl.com/plugins
 
 == Changelog ==
+
+= 2.2 =
+* added better html parsing and tag recognition for inserting links into content
 
 = 2.1 =
 * fixed backward compatibility with Wordpress >= 2.2.0
