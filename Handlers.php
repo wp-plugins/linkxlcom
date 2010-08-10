@@ -4,7 +4,7 @@
  * Plugin URI: http://linkxl.com
  * Settings URI: 
  * Description: LinkXL enables Wordpress bloggers to easily sell text link advertisting within existing content.
- * Version: 2.4
+ * Version: 2.5
  * Author: LinkXL
  * Author URI: http://linkxl.com
  */
@@ -17,6 +17,7 @@ require_once 'WPOptionHelper.php';
 require_once 'ContentHelper.php';
 require_once 'ContractsList.php';
 require_once 'SyncFopen.php';
+
 
 if(!function_exists('json_encode')){
     function json_encode($content){
@@ -36,9 +37,6 @@ add_action('update_option_linkxl_sync_count', array('Handlers', 'sync'));
 
 add_action('update_option_linkxl_site_token', array('Handlers', 'sync'));
 
-if(get_option('linkxl_configuration')){
-    addParseFilters(new ContractsList());
-}
 
 /**
  * Description of Handlers
@@ -140,12 +138,20 @@ class Handlers {
         exit();
     }
 
+    public static function showLinks()
+    {
+        if(get_option('linkxl_configuration')){
+            addParseFilters(new ContractsList());
+        }
+    }
+
     public static function setHandlers(Headers $headers)
     {
         $headers->addHandler('HTTP_LINKXLINFO', 'showInfo', 'Handlers');
         $headers->addHandler('HTTP_LINKXLSYNC', 'sync_request', 'Handlers');
         $headers->addHandler('HTTP_LINKXLSHOWTAG', 'showTag', 'Handlers');
         $headers->addHandler('HTTP_LINKXLSHOWVERSION', 'showVersion', 'Handlers');
+        
 
         $headers->addHandler('LINKXLINFO', 'showInfo', 'Handlers');
         $headers->addHandler('LINKXLSYNC', 'sync_request', 'Handlers');
@@ -156,6 +162,8 @@ class Handlers {
         $headers->addHandler('HTTP_HTTP_LINKXLSYNC', 'sync_request', 'Handlers');
         $headers->addHandler('HTTP_HTTP_LINKXLSHOWTAG', 'showTag', 'Handlers');
         $headers->addHandler('HTTP_HTTP_LINKXLSHOWVERSION', 'showVersion', 'Handlers');
+
+        $headers->setDefault('showLinks', 'Handlers');
     }
 }
 

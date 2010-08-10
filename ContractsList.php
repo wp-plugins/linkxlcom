@@ -19,10 +19,12 @@ class ContractsList {
 
         $temp = array();
         $i = 0;
-        foreach($contracts as $contract){
-            if($contract['publisher_url'] == $page_url){
-                $temp[$i] = $contract;
-                $i++;
+        if(is_array($contracts)){
+            foreach($contracts as $contract){
+                if($contract['publisher_url'] == $page_url){
+                    $temp[$i] = $contract;
+                    $i++;
+                }
             }
         }
 
