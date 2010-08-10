@@ -58,3 +58,10 @@ Please visit http://linkxl.com/plugins
 = 2.0 =
 * first release of the plugin for new LinkXL site
 
+== Screenshots ==
+
+1. LinkXL Wordpress Plugin Settings
+2. Adding Website to LinkXL.com
+3. LinkXL.com Homepage
+4. LinkXL.com Dual Account Dashboard
+
