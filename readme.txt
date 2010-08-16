@@ -1,7 +1,7 @@
 === LinkXL.com Plugin ===
 Contributors: mzawadzinski
 Donate link: http://linkxl.com/
-Tags: contextual advertising, monetize blog, make money, link building, sell links, seo, links, link
+Tags: contextual advertising, text links, sell links, monetize, content, make money, link building, seo, links, link, plugin, page
 Requires at least: 2.2.0
 Tested up to: 3.0
 Stable tag: 2.5
