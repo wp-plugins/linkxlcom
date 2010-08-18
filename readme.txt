@@ -6,13 +6,12 @@ Requires at least: 2.2.0
 Tested up to: 3.0
 Stable tag: 2.5
 
-Use the LinkXL plugin to monetize your blog by selling contextual links, automatically.  Simply install the plugin, approve the ads and collect your money!
+LinkXL is a fully-automated text links marketplace.  Use the LinkXL plugin to monetize your site by selling contextual links, automatically. 
 
 == Description ==
 
-LinkXL enables you to monetize your blog, automatically.  Once you install the plugin, we handle the rest!  LinkXL has relationships with digital agencies, large corporations and other
-link building companies who are looking for find high-quality and relevant ads for their clients' goods and services. 
-
+LinkXL is a fully-automated text links marketplace. It enables you to monetize your site, automatically.  Once you install the plugin, we handle the rest!  
+LinkXL has relationships with digital agencies, large corporations and other link building companies who are looking for find high-quality and relevant ads for their clients' goods and services. Learn more at http://linkxl.com/ 
 
 == Installation ==
 
