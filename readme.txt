@@ -1,4 +1,4 @@
-=== Sell text links & monetize content with text ads LinkXL.com ===
+=== LinkXL.com Sell links & monetize content with text ads ===
 Contributors: mzawadzinski
 Donate link: http://linkxl.com/
 Tags: contextual advertising, text links, sell links, monetize, content, make money, link building, seo, links, link, plugin, page
