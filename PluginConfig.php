@@ -17,6 +17,12 @@ if(count($_POST) && !function_exists('register_setting')){
     if(array_key_exists('linkxl_index_comment', $_POST)){
         update_option('linkxl_index_comment', $_POST['linkxl_index_comment']);
     }
+    if(array_key_exists('linkxl_not_index_homepage', $_POST)){
+        update_option('linkxl_not_index_homepage', $_POST['linkxl_not_index_homepage']);
+    }
+    if(array_key_exists('linkxl_index_all', $_POST)){
+        update_option('linkxl_index_all', $_POST['linkxl_index_all']);
+    }
     if(array_key_exists('linkxl_sync_count', $_POST)){
         update_option('linkxl_sync_count', $_POST['linkxl_sync_count']);
     }
@@ -61,6 +67,8 @@ function register_linkxl_settings() {
     if(function_exists('register_setting')){
         register_setting( 'linkxl-settings-group', 'linkxl_sync_url' );
 
+        register_setting('linkxl-settings-group', 'linkxl_not_index_homepage');
+        register_setting('linkxl-settings-group', 'linkxl_index_all');
 
         register_setting( 'linkxl-settings-group', 'linkxl_index_title' );
         register_setting( 'linkxl-settings-group', 'linkxl_index_post' );
@@ -83,74 +91,40 @@ function linkxl_settings_page() {
 <form method="post" action="<?php echo (function_exists('register_setting'))?'options.php':'' ?>" name="linkxlform">
     <?php (function_exists('settings_fields'))?settings_fields( 'linkxl-settings-group' ):''; ?>
     <table class="form-table">
+        <thead>
+            <?php if(get_option('linkxl_last_sync_status') == 'fail'): ?>
+                <tr valign="top">
+                    <th colspan="2"><?php _e('Your site token is invalid. Please update it and <a href="javascript:void(0)" onclick="linkxlform.submit();">try again</a>. You can also contact <a href="http://linkxl.com/contact">our technical support</a>.') ?></th>
+                </tr>
+            <?php endif ?>
 
-        <?php if(get_option('linkxl_last_sync_status') == 'fail'): ?>
             <tr valign="top">
-                <th colspan="2"><?php _e('Your site token is invalid. Please update it and <a href="javascript:void(0)" onclick="linkxlform.submit();">try again</a>. You can also contact <a href="http://linkxl.com/contact">our technical support</a>.') ?></th>
+            <th scope="row"><?php _e('Site token') ?></th>
+            <td><input type="text" size="40px" name="linkxl_site_token" value="<?php echo get_option('linkxl_site_token'); ?>" /></td>
             </tr>
-        <?php endif ?>
 
-        <tr valign="top">
-        <th scope="row"><?php _e('Site token') ?></th>
-        <td><input type="text" size="40px" name="linkxl_site_token" value="<?php echo get_option('linkxl_site_token'); ?>" /></td>
-        </tr>
+            <tr valign="top">
+            <td><input type="text" style="display: none" name="linkxl_sync_url"
+                       value="<?php echo ($option = get_option('linkxl_sync_url'))?$option:'http://pluginsync.linkxl.com/?token=%s'; ?>" /></td>
+            </tr>
 
-        <tr valign="top">
-        <td><input type="text" style="display: none" name="linkxl_sync_url"
-                   value="<?php echo ($option = get_option('linkxl_sync_url'))?$option:'http://pluginsync.linkxl.com/?token=%s'; ?>" /></td>
-        </tr>
-
-        <tr valign="top">
-            <th scope="row"><?php _e('Sell links in titles') ?></th>
-        <td>
-            <select style="width: 70px;" name="linkxl_index_title">
-                <?php if(get_option('linkxl_index_title') == 'on'): ?>
-                    <option value="on"><?php _e('Yes') ?></option>
-                    <option value="off"><?php _e('No') ?></option>
-                <?php else: ?>
-                    <option value="off"><?php _e('No') ?></option>
-                    <option value="on"><?php _e('Yes') ?></option>
-                <?php endif ?>
-            </select>
-        </td>
-        </tr>
-
-        <tr valign="top">
-            <th scope="row"><?php _e('Sell links in posts & pages') ?></th>
-        <td>
-            <select style="width: 70px;" name="linkxl_index_post">
-                <?php if(($option = get_option('linkxl_index_post')) == 'on' || $option == ''): ?>
-                    <option value="on"><?php _e('Yes') ?></option>
-                    <option value="off"><?php _e('No') ?></option>
-                <?php else: ?>
-                    <option value="off"><?php _e('No') ?></option>
-                    <option value="on"><?php _e('Yes') ?></option>
-                <?php endif ?>
-            </select>
-        </td>
-        </tr>
-
-        <tr valign="top">
-            <th scope="row"><?php _e('Sell links in comments') ?></th>
-        <td>
-            <select style="width: 70px;" name="linkxl_index_comment">
-                <?php if(($option = get_option('linkxl_index_comment')) == 'on' || $option == ''): ?>
-                    <option value="on"><?php _e('Yes') ?></option>
-                    <option value="off"><?php _e('No') ?></option>
-                <?php else: ?>
-                    <option value="off"><?php _e('No') ?></option>
-                    <option value="on"><?php _e('Yes') ?></option>
-                <?php endif ?>
-            </select>
-        </td>
-        </tr>
-
-        <tr valign="top">
-            <th scope="row"></th>
-            <td>
-                <input type="hidden" value="<?php echo ($option = get_option('linkxl_sync_count'))?$option+1:1 ?>" name="linkxl_sync_count">
-            </td>
-        </tr>
+            <?php select_form('DO NOT sell links on homepage', 'linkxl_not_index_homepage', array(), 'off') ?>
+            <?php select_form('Sell links everywhere (including footer and sidebar)', 'linkxl_index_all',
+                    array('id' => 'linkxl_index_all', 'onchange' => 'change_mode()'), 'off') ?>
+        </thead>
+        <tbody id="parts" <?php echo (get_option('linkxl_index_all') == 'on')?'style="display:none;"':'' ?>>
+                <?php select_form('Sell links in titles', 'linkxl_index_title') ?>
+                <?php select_form('Sell links in posts & pages', 'linkxl_index_post') ?>
+                <?php select_form('Sell links in comments', 'linkxl_index_comment') ?>
+        </tbody>
+        <tfoot>
+            <tr valign="top">
+                <th scope="row"></th>
+                <td>
+                    <input type="hidden" value="<?php echo ($option = get_option('linkxl_sync_count'))?$option+1:1 ?>" name="linkxl_sync_count">
+                </td>
+            </tr>
+        </tfoot>
     </table>
 
     <p class="submit">
@@ -159,4 +133,45 @@ function linkxl_settings_page() {
 
 </form>
 </div>
-<?php } ?>
+
+<script type="text/javascript">
+    //<![CDATA[
+    function change_mode()
+    {
+        if(document.getElementById('linkxl_index_all').value == 'on'){
+            document.getElementById('parts').style.display = 'none';
+        }
+        else{
+            document.getElementById('parts').style.display = '';
+        }
+    }
+    //]]>
+</script>
+
+
+
+<?php }
+
+function select_form($title, $name, $options=array(), $default='on')
+    {
+        $params = '';
+        foreach($options as $key => $value){
+            $params .= sprintf(' %s="%s"', $key, $value);
+        }
+        ?>
+            <tr valign="top">
+            <th scope="row"><?php _e($title) ?></th>
+                <td>
+                    <select style="width: 70px;" name="<?php echo $name ?>"<?php echo $params ?>>
+                        <?php if(($option = get_option($name)) == 'on' || ($option == '' && $default == 'on')): ?>
+                            <option value="on"><?php _e('Yes') ?></option>
+                            <option value="off"><?php _e('No') ?></option>
+                        <?php else: ?>
+                            <option value="off"><?php _e('No') ?></option>
+                            <option value="on"><?php _e('Yes') ?></option>
+                        <?php endif ?>
+                    </select>
+                </td>
+            </tr>
+        <?php
+    } ?>
