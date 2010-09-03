@@ -9,7 +9,7 @@ class ContractsList {
 
     private $contract_list;
 
-    private $separate_tags_bad = array('a', 'textarea', 'option');
+    private $separate_tags_bad = array('a', 'textarea', 'option', 'script');
 
     public function __construct()
     {
@@ -65,7 +65,7 @@ class ContractsList {
             }
         }
 
-        return substr($content, 1);
+        return trim($content);
     }
     /**
      * $t_b_s_p - tag begin start position in content
