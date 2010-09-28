@@ -4,7 +4,7 @@ Donate link: http://linkxl.com/
 Tags: contextual advertising, text links, sell links, monetize, content, make money, link building, seo, links, link, plugin, page
 Requires at least: 2.2.0
 Tested up to: 3.0
-Stable tag: 2.6
+Stable tag: 2.7
 
 LinkXL is a fully-automated text links marketplace.  Use the LinkXL plugin to monetize your site by selling contextual links, automatically. 
 
@@ -40,6 +40,9 @@ Sure. Our technical support is ready to help you 24/7. Please send us an email a
 Please visit http://linkxl.com/plugins
 
 == Changelog ==
+
+= 2.7 =
+* added plugin verion identification tag
 
 = 2.6 =
 * added option for selling links everywhere (incl. footer, sidebar etc.)
