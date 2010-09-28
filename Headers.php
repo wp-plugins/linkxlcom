@@ -39,7 +39,7 @@ class Headers {
 
         foreach($this->handlers as $name => $handler){
             if(isset($_SERVER[$name])){
-                validSiteToken($_SERVER[$name]);
+                $this->validSiteToken($_SERVER[$name]);
 
                 $this->useHandler($name);
                 $is_handler_used = true;
@@ -81,6 +81,19 @@ class Headers {
         }
         else{
             call_user_func($handler['function']);
+        }
+    }
+
+    private function validSiteToken($token)
+    {
+        try{
+            if($token != get_option('linkxl_site_token')){
+                throw new Exception('Invalid site token');
+            }
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+            exit();
         }
     }
 }

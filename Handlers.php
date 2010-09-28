@@ -2,9 +2,9 @@
 /**
  * Plugin Name: LinkXL.com
  * Plugin URI: http://linkxl.com
- * Settings URI: 
+ * Settings URI:
  * Description: LinkXL enables Wordpress bloggers to easily sell text link advertisting within existing content.
- * Version: 2.6
+ * Version: 2.7
  * Author: LinkXL
  * Author URI: http://linkxl.com
  */
@@ -142,7 +142,7 @@ class Handlers {
 
     public static function showVersion()
     {
-        echo json_encode(array('VERSION' => '2.6', 'TYPE' => 'WORDPRESS_PHP5'));
+        echo json_encode(array('VERSION' => '2.7', 'TYPE' => 'WORDPRESS_PHP5'));
 
         exit();
     }
@@ -181,7 +181,7 @@ class Handlers {
         }
 
         $data = json_decode(stripcslashes($_POST['settings']), true);
-        
+
         foreach($data as $key => $value){
             if(in_array($key, $available_fields) && in_array($value, $available_values)){
                 update_option($key, $value);
@@ -196,7 +196,7 @@ class Handlers {
     public static function testConnection()
     {
         $sync_url = getSyncUrl();
-        
+
         echo 'Connection to: '.$sync_url.'<br/>';
 
         if(function_exists('curl_init')){
@@ -240,7 +240,7 @@ class Handlers {
         $headers->addHandler('HTTP_LINKXLSETTINGS', 'showSettingsInfo', 'Handlers');
         $headers->addHandler('HTTP_LINKXLSETSETTINGS', 'setSettings', 'Handlers');
         $headers->addHandler('HTTP_LINKXLTESTCONNECTION', 'testConnection', 'Handlers');
-        
+
 
         $headers->addHandler('LINKXLINFO', 'showInfo', 'Handlers');
         $headers->addHandler('LINKXLSYNC', 'sync_request', 'Handlers');

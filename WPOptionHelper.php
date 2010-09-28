@@ -45,13 +45,6 @@ function setConfig($config)
     update_option('linkxl_last_sync_status', 'good');
 }
 
-function validSiteToken($token)
-{
-    if($token != get_option('linkxl_site_token')){
-        throw new Exception("Not valid site token");
-    }
-}
-
 function getTag()
 {
     if($option = get_option('linkxl_configuration')){
